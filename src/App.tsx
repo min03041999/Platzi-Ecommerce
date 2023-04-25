@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import {loginAsync, showAuth} from "./app/features/loginSlice"
 function App() {
+  const dispatch = useDispatch();
+  interface Ilogin {
+    email: string;
+    password: string;
+  }
+
+  const login: Ilogin = {
+    email: "admin@mail.com",
+    password: "admin123"
+  }
+
+// type each dispatch as any (not good if you need to use 'abort', etc)
+  dispatch(loginAsync( login  ) as any );
+
+  const auth = useSelector(showAuth);
+  console.log(auth);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
     </div>
   );
 }
