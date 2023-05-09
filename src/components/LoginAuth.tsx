@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { IAccount } from "../interface/interface";
 import { loginAsync } from "../app/features/loginSlice";
+// import TokenServices from "../api/tokenService";
 
 const LoginAuth = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,17 @@ const LoginAuth = () => {
                 margin="normal"
                 id="email"
                 name="email"
+                className={
+                  formik.errors.email && formik.touched.email
+                    ? "is-invalid"
+                    : ""
+                }
+                error={!!formik.errors.email && formik.touched.email === true}
+                helperText={
+                  formik.errors.email && formik.touched.email
+                    ? formik.errors.email
+                    : null
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
@@ -66,6 +78,19 @@ const LoginAuth = () => {
                 fullWidth
                 margin="normal"
                 name="password"
+                className={
+                  formik.errors.password && formik.touched.email
+                    ? "is-invalid"
+                    : ""
+                }
+                error={
+                  !!formik.errors.password && formik.touched.email === true
+                }
+                helperText={
+                  formik.errors.password && formik.touched.password
+                    ? formik.errors.password
+                    : null
+                }
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
