@@ -48,12 +48,4 @@ axiosClient.interceptors.response.use(
     }
 );
 
-
-// axiosClient.interceptors.response.use((res) => {
-//     if (res && res.data) return res;
-//     return res;
-// }, (err) => {
-//     throw err.response;
-// });
-
 export default axiosClient;

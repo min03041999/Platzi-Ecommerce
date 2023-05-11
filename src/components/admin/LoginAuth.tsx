@@ -1,12 +1,10 @@
-import logoLogin from "../assets/images/logo-login.png";
+import logoLogin from "../../assets/images/logo-login.png";
 import { Card, Grid, Typography, TextField, Button } from "@mui/material";
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { IAccount } from "../interface/interface";
-import { loginAsync } from "../app/features/loginSlice";
-// import TokenServices from "../api/tokenService";
+import { IAccount } from "../../interface/interface";
+import { loginAsync } from "../../app/features/loginSlice";
 
 const LoginAuth = () => {
   const dispatch = useDispatch();

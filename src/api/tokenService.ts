@@ -3,6 +3,14 @@ const TokenServices = {
         localStorage.setItem("token", JSON.stringify(token));
     },
 
+    getToken() {
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+            return JSON.parse(token);
+        }
+        return null;
+    },
+
     updateToken(token: any) {
         localStorage.setItem("token", JSON.stringify(token));
     },

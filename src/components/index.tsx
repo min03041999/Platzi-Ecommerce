@@ -1,1 +1,4 @@
-export { default as LoginAuth } from "./LoginAuth";
+//Admin
+export { default as LoginAuth } from "./admin/LoginAuth";
+
+//Client

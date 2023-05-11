@@ -4,7 +4,7 @@ import loginApi from "../../api/modules/login.api";
 import tokenService from "../../api/tokenService";
 import { IAccount, IAuthentication } from "../../interface/interface";
 
-const initialState: IAuthentication = { isProcessingRequest: false };
+const initialState: IAuthentication = { isProcessingRequest: false, user: tokenService.getUser(), token: tokenService.getToken() };
 
 export const loginSlice = createSlice({
   name: "login",
@@ -19,6 +19,7 @@ export const loginSlice = createSlice({
     success: (state, action: PayloadAction<any>) => {
       return {
         ...state,
+        ...action.payload,
         isProcessingRequest: false
       };
     },
@@ -34,26 +35,17 @@ export const loginSlice = createSlice({
 export const loginAsync = (account: IAccount) => async (dispatch: any) => {
   try {
     const res = await loginApi.login(account);
-    tokenService.setToken(res);
-    dispatch(profileAsync());
-    dispatch(success({ message: "Login successful!" }));
-
+    const token = tokenService.setToken(res);
+    if (token !== null) {
+      const res_ = await loginApi.profile();
+      tokenService.setUser(res_);
+      dispatch(success({ message: "Login successful!", token: res, user: res_ }));
+    }
   } catch (err: any) {
     console.log(err);
-    dispatch(error({ message: "Login failed!" }));
+    dispatch(error({ message: "Login failed!", token: "", user: "" }));
   }
 };
-
-export const profileAsync = () => async (dispatch: any) => {
-  try {
-    const res = await loginApi.profile();
-    tokenService.setUser(res);
-
-  } catch (err: any) {
-    console.log(err);
-    dispatch(error(err));
-  }
-}
 
 export const logoutAsync = () => {
   tokenService.removeToken();
