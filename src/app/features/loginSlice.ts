@@ -26,6 +26,7 @@ export const loginSlice = createSlice({
     error: (state, action: PayloadAction<any>) => {
       return {
         ...state,
+        ...action.payload,
         isProcessingRequest: false,
       };
     },
@@ -42,7 +43,6 @@ export const loginAsync = (account: IAccount) => async (dispatch: any) => {
       dispatch(success({ message: "Login successful!", token: res, user: res_ }));
     }
   } catch (err: any) {
-    console.log(err);
     dispatch(error({ message: "Login failed!", token: "", user: "" }));
   }
 };
