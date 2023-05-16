@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { IAccount } from "../../interface/interface";
-import { loginAsync } from "../../app/features/loginSlice";
+import { loginAuthAsync } from "../../app/features/loginSlice";
 
 const LoginAuth = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const LoginAuth = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       // type each dispatch as any (not good if you need to use 'abort', etc)
-      dispatch(loginAsync(values) as any);
+      dispatch(loginAuthAsync(values) as any);
     },
   });
 

@@ -1,6 +1,6 @@
 import { LoginAuth } from "../components";
 import { useSelector } from "react-redux";
-import { SideNav, TopNav } from "../layout";
+import { DashboardLayout } from "../layout";
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({
@@ -18,10 +18,10 @@ const Toast = Swal.mixin({
 const AdminPage = () => {
   const auth = useSelector((state: any) => state.authentication);
 
-  if (auth.user?.role === "customer" || auth.user === "") {
+  if (auth.user?.role !== "admin" && auth.user !== null) {
     Toast.fire({
       icon: "warning",
-      title: auth.message + "or not administrator",
+      title: auth.message,
     });
   }
 
@@ -29,8 +29,7 @@ const AdminPage = () => {
     <>
       {auth.user?.role === "admin" ? (
         <>
-          <SideNav />
-          <TopNav />
+          <DashboardLayout />
         </>
       ) : (
         <LoginAuth />

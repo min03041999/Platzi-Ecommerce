@@ -33,17 +33,22 @@ export const loginSlice = createSlice({
   },
 });
 
-export const loginAsync = (account: IAccount) => async (dispatch: any) => {
+export const loginAuthAsync = (account: IAccount) => async (dispatch: any) => {
   try {
     const res = await loginApi.login(account);
     const token = tokenService.setToken(res);
     if (token !== null) {
-      const res_ = await loginApi.profile();
-      tokenService.setUser(res_);
-      dispatch(success({ message: "Login successful!", token: res, user: res_ }));
+      const res_: any = await loginApi.profile();
+      if (res_.role === "admin") {
+        tokenService.setUser(res_);
+        dispatch(success({ message: "Login successful!", token: res, user: res_ }));
+      } else {
+        tokenService.removeToken();
+        dispatch(error({ message: "Login is failed or not administrator", token: "", user: "" }));
+      }
     }
   } catch (err: any) {
-    dispatch(error({ message: "Login failed!", token: "", user: "" }));
+    dispatch(error({ message: "Login is failed !", token: "", user: "" }));
   }
 };
 

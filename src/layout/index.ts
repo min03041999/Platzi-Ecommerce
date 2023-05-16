@@ -1,5 +1,4 @@
 //Admin
-export { default as SideNav } from "./admin/SideNav";
-export { default as TopNav } from "./admin/TopNav";
+export { default as DashboardLayout } from "./admin/DashboardLayout";
 
 //Client
