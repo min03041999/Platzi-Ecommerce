@@ -7,13 +7,15 @@ const StyledRoot = styled("div")({
   display: "flex",
   minHeight: "100%",
   overflow: "hidden",
+  background: "#fff"
 });
 
 const DashboardLayout = () => {
   return (
     <StyledRoot>
-      <Header />
       <Nav />
+      {/* <Header /> */}
+
     </StyledRoot>
   );
 };

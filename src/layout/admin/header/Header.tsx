@@ -6,11 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-const darkTheme = createTheme({
+const customTheme = createTheme({
   palette: {
-    mode: "dark",
     primary: {
       main: "#12121200",
+      contrastText: "#000"
     },
   },
 });
@@ -18,25 +18,25 @@ const darkTheme = createTheme({
 const Header = () => {
   return (
     <Stack spacing={2} sx={{ flexGrow: 1 }}>
-      <ThemeProvider theme={darkTheme}>
-        <AppBar position="static" color="primary" enableColorOnDark>
+      <ThemeProvider theme={customTheme}>
+        <AppBar position='static' color='primary' >
           <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
+            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
-            {/* <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              Xin chaof
-            </Typography> */}
+            <Typography sx={{ flexGrow: 1 }}></Typography>
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+
+                color="inherit"
+              >
+                1
+              </IconButton>
+
+            </div>
           </Toolbar>
         </AppBar>
       </ThemeProvider>
