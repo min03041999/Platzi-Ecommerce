@@ -26,12 +26,14 @@ axiosClient.interceptors.response.use(
     },
     async (err) => {
         const originalConfig = err.config;
+        //In case the request is failed again, and the server continue to return 401 status code, it may go to Infinite loop. How to handle this?
+        //We use a flag call _retry on original Request (config). _retry is set to true right after the first time we meet 401 status.
 
-        if (err.response) {
+        if (originalConfig.url !== '/auth/login' && err.response) {
             // Access Token was expired
             // if (err.response.status === 400 && !originalConfig._retry) {
-            if (err.response.status === 400) {
-                // originalConfig._retry = true;
+            if (err.response.status === 401 && !originalConfig._retry) {
+                originalConfig._retry = true;
 
                 try {
                     const accessToken = TokenServices.getAccessToken();
