@@ -52,9 +52,10 @@ export const loginAuthAsync = (account: IAccount) => async (dispatch: any) => {
   }
 };
 
-export const logoutAsync = () => {
+export const logoutAsync = () => async (dispatch: any) => {
   tokenService.removeToken();
   tokenService.removeUser();
+  dispatch(success({ message: "Logout successful!", token: "", user: "" }));
 }
 
 //Export action ra để sử dụng cho tiện

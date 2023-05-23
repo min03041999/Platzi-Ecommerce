@@ -13,14 +13,18 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 import MailIcon from "@mui/icons-material/Mail";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { styled } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutAsync } from "../../app/features/loginSlice";
+import { Outlet, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 const StyledRoot = styled("div")({
   display: "flex",
@@ -32,7 +36,35 @@ const StyledRoot = styled("div")({
 const drawerWidth = 250;
 
 const DashboardLayout = () => {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const user = useSelector((state: any) => state.authentication.user);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const settingMenu = [
+    {
+      title: "Profile",
+      action: () => {
+        navigate("/admin/profile");
+      },
+    },
+    {
+      title: "Logout",
+      action: () => {
+        dispatch(logoutAsync() as any);
+        navigate("/admin");
+      },
+    },
+  ];
 
   return (
     <StyledRoot>
@@ -83,10 +115,35 @@ const DashboardLayout = () => {
               </Badge>
             </IconButton>
             <Tooltip title="Open settings">
-              <IconButton>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ paddingLeft: "15px" }}
+              >
                 <Avatar alt="Remy Sharp" src={user.avatar} />
               </IconButton>
             </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settingMenu.map((item, i) => (
+                <MenuItem key={i} onClick={item.action}>
+                  <Typography textAlign="center">{item.title}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>

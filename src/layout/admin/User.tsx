@@ -9,7 +9,7 @@ const User = () => {
   return (
     <StyledRoot>
       <BreadcrumbsLayout title="User" />
-      <CardLayout />
+      <CardLayout></CardLayout>
     </StyledRoot>
   );
 };
