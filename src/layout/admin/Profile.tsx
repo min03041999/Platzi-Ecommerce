@@ -9,28 +9,28 @@ const StyledRoot = styled("div")({
 
 const Profile = () => {
   const userProfile = useSelector((state: any) => state.authentication.user);
-  console.log(userProfile);
   return (
     <StyledRoot>
       <BreadcrumbsLayout title="Profile" />
-      <Grid container spacing={0} direction="column" alignItems="center">
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        sx={{ marginTop: "24px" }}
+      >
         <Grid item xs={3}>
           <CardLayout>
-            <Grid container spacing={2}>
-              <Grid xs={4}>
-                <Box
-                  component="img"
-                  sx={{
-                    height: 233,
-                    width: "100%",
-                    maxHeight: { xs: 233, md: 167 },
-                  }}
-                  alt={userProfile.email}
-                  src={userProfile.avatar}
-                />
-              </Grid>
-              <Grid xs={8}>fgdfgdfgfdgdfgfdgdfgdfggdfgdfgdfgdf</Grid>
-            </Grid>
+            <Box
+              component="img"
+              sx={{
+                height: 233,
+                width: "100%",
+                maxHeight: { xs: 233, md: 167 },
+              }}
+              alt={userProfile.email}
+              src={userProfile.avatar}
+            />
           </CardLayout>
         </Grid>
       </Grid>
