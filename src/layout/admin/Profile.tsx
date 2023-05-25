@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { BreadcrumbsLayout, CardLayout } from "../../components";
-import { Grid, Box } from "@mui/material";
+import { Grid, Avatar, Typography, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const StyledRoot = styled("div")({
@@ -9,6 +9,8 @@ const StyledRoot = styled("div")({
 
 const Profile = () => {
   const userProfile = useSelector((state: any) => state.authentication.user);
+
+  console.log(userProfile);
   return (
     <StyledRoot>
       <BreadcrumbsLayout title="Profile" />
@@ -19,18 +21,32 @@ const Profile = () => {
         alignItems="center"
         sx={{ marginTop: "24px" }}
       >
-        <Grid item xs={3}>
-          <CardLayout>
-            <Box
-              component="img"
+        <Grid item xs={8}>
+          <CardLayout style={{ maxWidth: "800px", padding: "0 30px" }}>
+            <Avatar
               sx={{
-                height: 233,
-                width: "100%",
-                maxHeight: { xs: 233, md: 167 },
+                height: 250,
+                width: 250,
+                maxHeight: { xs: 200, md: 250 },
+                maxWidth: { xs: 200, md: 250 },
               }}
               alt={userProfile.email}
               src={userProfile.avatar}
             />
+            <Box component="div" sx={{ paddingTop: "10px" }}>
+              <Typography variant="h6">
+                Name:{" "}
+                <span style={{ fontWeight: "400" }}> {userProfile.name}</span>
+              </Typography>
+              <Typography variant="h6">
+                Role:{" "}
+                <span style={{ fontWeight: "400" }}> {userProfile.role}</span>
+              </Typography>
+              <Typography variant="h6">
+                Email:{" "}
+                <span style={{ fontWeight: "400" }}> {userProfile.email}</span>
+              </Typography>
+            </Box>
           </CardLayout>
         </Grid>
       </Grid>

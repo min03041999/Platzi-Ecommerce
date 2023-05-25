@@ -1,7 +1,7 @@
-import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 import { AdminPage, ClientPage } from "./auth/";
 import { User, Profile } from "./layout/index";
+import "./App.scss";
 
 function App() {
   return (

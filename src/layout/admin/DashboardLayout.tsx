@@ -88,7 +88,11 @@ const DashboardLayout = () => {
       </div>
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
+          sx: "0",
+        }}
       >
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start">
